@@ -1,0 +1,24 @@
+ValidName Method
+Check Name: GRAPH123
+Return True: Duplicate Not Found
+ValidName Method
+Check Name: 1GRAPH123
+Return True: Duplicate Not Found
+ValidName Method
+Check Name: 1graph123
+Return False: Duplicate Found
+ValidName Method
+Check Name: 1graph12
+Return True: Duplicate Not Found
+ValidName Method
+Check Name: 123LINKED LIST
+Return True: Duplicate Not Found
+ValidName Method
+Check Name: 1LINKED LIST1
+Return True: Duplicate Not Found
+ValidName Method
+Check Name: 12HEAP
+Return True: Duplicate Not Found
+ValidName Method
+Check Name: dsvvdv
+Return True: Duplicate Not Found

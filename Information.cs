@@ -29,6 +29,7 @@ namespace WikiApplicationFINAL
             structure = newStructure;
             definition = newDefinition;
         }
+        // Getters & Setters
         public string GetName()
         {
             return name;

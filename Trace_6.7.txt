@@ -1,0 +1,9 @@
+DeleteWiki Method
+Check Deletion: HASH TABLE
+Return: Deleted
+DeleteWiki Method
+Check Deletion: HEAP
+Return: Deleted
+DeleteWiki Method
+Check Deletion: SET
+Return: Deleted

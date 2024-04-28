@@ -1,0 +1,6 @@
+EditWiki Method
+Check Name: QUEUE
+ValidName Method
+Check Name: QUEUE123
+Return True: Duplicate Not Found
+Return: Edited Data

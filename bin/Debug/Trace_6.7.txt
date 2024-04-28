@@ -1,0 +1,15 @@
+DeleteWiki Method
+Check Deletion: 7
+Return: Deleted
+DeleteWiki Method
+Check Deletion: 6
+Return: Deleted
+DeleteWiki Method
+Check Deletion: LINKED LIST
+Return: Deleted
+DeleteWiki Method
+Check Deletion: QUEUE
+Return: Deleted
+DeleteWiki Method
+Check Deletion: HASH TABLE
+Return: Deleted

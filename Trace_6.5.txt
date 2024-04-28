@@ -1,0 +1,6 @@
+ValidName Method
+Check Name: QUEUE123
+Return True: Duplicate Not Found
+ValidName Method
+Check Name: sdvfdsvs
+Return True: Duplicate Not Found

@@ -13,6 +13,7 @@ using static System.Windows.Forms.LinkLabel;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Reflection;
 using System.Runtime.Remoting.Messaging;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace WikiApplicationFINAL
 {
@@ -58,35 +59,36 @@ namespace WikiApplicationFINAL
         // Use the built in List<T> method “Exists” to answer this requirement.
         private bool ValidName(string a)
         {
-            /* StreamWriter stream = File.AppendText("Trace_6.5.txt");
+            // Open a trace log file for debugging
+            StreamWriter stream = File.AppendText("Trace_6.5.txt");
             TextWriterTraceListener writer = new TextWriterTraceListener(stream);
             Trace.Listeners.Add(writer);
             Trace.WriteLine("ValidName Method");
-            Trace.WriteLine("Check Name: " + a); */
+            Trace.WriteLine("Check Name: " + a);
+
+            // Check if the input name is not empty
             if (!string.IsNullOrEmpty(txtBoxName.Text))
             {
-                // If statement used to see if there is any duplications when user inputs the same name as any of the other ones within list
+                // Check if the input name is already in the WikiList
                 if (WikiList.Exists(dup => dup.GetName() == a.ToUpper()))
                 {
-                    //Trace.WriteLine("Return False: Duplicate Found");
-                    //Trace.Flush();
-                    //stream.Close();
-                    return false;
+                    Trace.WriteLine("Return False: Duplicate Found");
+                    Trace.Flush();
+                    stream.Close();
+                    return false; // Return false if a duplicate name is found
                 }
                 else
                 {
-                    //Trace.WriteLine("Return True: Duplicate Not Found");
-                    //Trace.Flush();
-                    //stream.Close();
-                    return true;
+                    Trace.WriteLine("Return True: Duplicate Not Found");
+                    Trace.Flush();
+                    stream.Close();
+                    return true; // Return true if no duplicate name is found
                 }
             }
             else
             {
-                return false;
+                return false; // Return false if the input name is empty
             }
-           
-
         }
 
 
@@ -211,6 +213,13 @@ namespace WikiApplicationFINAL
             int selectedIndex = listViewWiki.SelectedIndices[0];
             Information selectedData = WikiList[selectedIndex];
 
+            // Open a trace log file for debugging
+            StreamWriter stream = File.AppendText("Trace_6.8.txt");
+            TextWriterTraceListener writer = new TextWriterTraceListener(stream);
+            Trace.Listeners.Add(writer);
+            Trace.WriteLine("EditWiki Method");
+            Trace.WriteLine("Check Name: " + selectedData.GetName());
+
             // Check if the name is valid (not a duplicate)
             if (ValidName(txtBoxName.Text))
             {
@@ -218,11 +227,17 @@ namespace WikiApplicationFINAL
                 if (string.IsNullOrEmpty(txtBoxName.Text) || string.IsNullOrEmpty(comboBoxCategory.Text) ||
                     string.IsNullOrEmpty(GetRadioButton()) || string.IsNullOrEmpty(txtBoxDefinition.Text))
                 {
+                    Trace.WriteLine("Return: Must fill all fields");
+                    Trace.Flush();
+                    stream.Close();
                     // Display a message if any required field is empty
                     toolStripStatusLabel1.Text = "Fill all fields to edit data.";
                 }
                 else
                 {
+                    Trace.WriteLine("Return: Edited Data");
+                    Trace.Flush();
+                    stream.Close();
                     // Updates the information
                     selectedData.SetName(txtBoxName.Text.ToUpper());
                     selectedData.SetCategory(comboBoxCategory.Text);
@@ -239,6 +254,9 @@ namespace WikiApplicationFINAL
             }
             else
             {
+                Trace.WriteLine("Return: Duplicate Found");
+                Trace.Flush();
+                stream.Close();
                 // Prints message if the name entered in txtBoxName is a duplicate
                 toolStripStatusLabel1.Text = "Duplication!";
             }
@@ -253,6 +271,14 @@ namespace WikiApplicationFINAL
             {
                 // Get the index of the selected data
                 int selectedIndex = listViewWiki.SelectedIndices[0];
+                Information selectedData = WikiList[selectedIndex]; 
+
+                // Open a trace log file for debugging
+                StreamWriter stream = File.AppendText("Trace_6.7.txt");
+                TextWriterTraceListener writer = new TextWriterTraceListener(stream);
+                Trace.Listeners.Add(writer);
+                Trace.WriteLine("DeleteWiki Method");
+                Trace.WriteLine("Check Deletion: " + selectedData.GetName()); 
 
                 // Ask for confirmation before deleting
                 DialogResult result = MessageBox.Show("Are you sure you want this data to be deleted?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -260,6 +286,9 @@ namespace WikiApplicationFINAL
                 // If the user confirms deletion
                 if (result == DialogResult.Yes)
                 {
+                    Trace.WriteLine("Return: Deleted");
+                    Trace.Flush();
+                    stream.Close();
                     // Remove the selected item from WikiList
                     WikiList.RemoveAt(selectedIndex);
 
@@ -531,7 +560,3 @@ namespace WikiApplicationFINAL
     }
 }
 #endregion
-
-
-
-

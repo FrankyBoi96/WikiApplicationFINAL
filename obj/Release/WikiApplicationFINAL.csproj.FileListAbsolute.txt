@@ -1,0 +1,10 @@
+F:\Semester 1 (2024)\Monday\Cluster - C Sharp Two\Assessment\AT2\WikiApplicationFINAL\WikiApplicationFINAL\bin\Release\WikiApplicationFINAL.exe.config
+F:\Semester 1 (2024)\Monday\Cluster - C Sharp Two\Assessment\AT2\WikiApplicationFINAL\WikiApplicationFINAL\bin\Release\WikiApplicationFINAL.exe
+F:\Semester 1 (2024)\Monday\Cluster - C Sharp Two\Assessment\AT2\WikiApplicationFINAL\WikiApplicationFINAL\bin\Release\WikiApplicationFINAL.pdb
+F:\Semester 1 (2024)\Monday\Cluster - C Sharp Two\Assessment\AT2\WikiApplicationFINAL\WikiApplicationFINAL\obj\Release\WikiApplicationFINAL.csproj.AssemblyReference.cache
+F:\Semester 1 (2024)\Monday\Cluster - C Sharp Two\Assessment\AT2\WikiApplicationFINAL\WikiApplicationFINAL\obj\Release\WikiApplicationFINAL.Properties.Resources.resources
+F:\Semester 1 (2024)\Monday\Cluster - C Sharp Two\Assessment\AT2\WikiApplicationFINAL\WikiApplicationFINAL\obj\Release\WikiApplicationFINAL.WikiApplicationFINAL.resources
+F:\Semester 1 (2024)\Monday\Cluster - C Sharp Two\Assessment\AT2\WikiApplicationFINAL\WikiApplicationFINAL\obj\Release\WikiApplicationFINAL.csproj.GenerateResource.cache
+F:\Semester 1 (2024)\Monday\Cluster - C Sharp Two\Assessment\AT2\WikiApplicationFINAL\WikiApplicationFINAL\obj\Release\WikiApplicationFINAL.csproj.CoreCompileInputs.cache
+F:\Semester 1 (2024)\Monday\Cluster - C Sharp Two\Assessment\AT2\WikiApplicationFINAL\WikiApplicationFINAL\obj\Release\WikiApplicationFINAL.exe
+F:\Semester 1 (2024)\Monday\Cluster - C Sharp Two\Assessment\AT2\WikiApplicationFINAL\WikiApplicationFINAL\obj\Release\WikiApplicationFINAL.pdb

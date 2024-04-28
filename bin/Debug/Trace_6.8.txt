@@ -1,0 +1,18 @@
+EditWiki Method
+Check Name: 5
+ValidName Method
+Check Name: 123LINKED LIST
+Return True: Duplicate Not Found
+Return: Edited Data
+EditWiki Method
+Check Name: 0
+ValidName Method
+Check Name: 1LINKED LIST1
+Return True: Duplicate Not Found
+Return: Edited Data
+EditWiki Method
+Check Name: HEAP
+ValidName Method
+Check Name: 12HEAP
+Return True: Duplicate Not Found
+Return: Edited Data
