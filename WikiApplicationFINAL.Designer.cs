@@ -91,6 +91,7 @@
             this.txtBoxName.Name = "txtBoxName";
             this.txtBoxName.Size = new System.Drawing.Size(175, 20);
             this.txtBoxName.TabIndex = 3;
+            this.txtBoxName.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.TextBoxName_DoubleClick);
             // 
             // txtBoxDefinition
             // 
@@ -278,6 +279,7 @@
             this.Controls.Add(this.listViewWiki);
             this.Name = "WikiApplicationFINAL";
             this.Text = "Wiki Application";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.WikiApplicationFINAL_FormClosing);
             this.groupBoxStructure.ResumeLayout(false);
             this.groupBoxStructure.PerformLayout();
             this.statusStrip1.ResumeLayout(false);

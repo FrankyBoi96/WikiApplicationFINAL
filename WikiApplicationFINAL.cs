@@ -23,6 +23,7 @@ namespace WikiApplicationFINAL
             InitializeComponent();
             toolStripStatusLabel1.Text = "Welcome to the Wiki Application!";
             ComboBoxCategory();
+             
         }
 
         // 6.2 Create a global List<T> of type Information called Wiki.
@@ -33,12 +34,12 @@ namespace WikiApplicationFINAL
         // and the associated information will be displayed in the related text boxes combo box and radio button.
         private void DisplayList()
         {
-            //WikiList.Sort();
+            
             listViewWiki.Items.Clear();
 
             foreach (Information item in WikiList)
             {
-                // Create a new ListViewItem and add sub-items (columns) to it
+                // Creates a new ListViewItem and add sub-items (columns) to it
                 ListViewItem listViewItem = new ListViewItem(item.GetName()); // Assuming name is displayed in the first column
 
                 // Add additional sub-items as needed for other properties
@@ -46,7 +47,7 @@ namespace WikiApplicationFINAL
                 listViewItem.SubItems.Add(item.GetStructure());
                 listViewItem.SubItems.Add(item.GetDefinition());
 
-                // Add the ListViewItem to the ListView
+                // Adds the ListViewItem to the ListView
                 listViewWiki.Items.Add(listViewItem);
             }
         }
@@ -119,9 +120,9 @@ namespace WikiApplicationFINAL
             }
             else
             {
-                radioBtnNonLinear.Checked = true; // Change this to set the Non-Linear radio button
+                radioBtnNonLinear.Checked = true; 
             }
-            txtBoxDefinition.Text = WikiList[indx].GetDefinition(); // Add .Text to set the text property
+            txtBoxDefinition.Text = WikiList[indx].GetDefinition(); 
         }
 
 
@@ -140,13 +141,15 @@ namespace WikiApplicationFINAL
                 {
                     try
                     {
-                        // Create a new Information object with the input data
+                        // Creates a new Information object with the input data
                         Information newInformation = new Information(txtBoxName.Text.ToUpper(), comboBoxCategory.Text, GetRadioButton(), txtBoxDefinition.Text);
 
                         // Add the newInformation object to the WikiList
                         WikiList.Add(newInformation);
+                        
+                        ResetTextBoxes(); 
+                        toolStripStatusLabel1.Text = "Successfully added data to the list!";
 
-                        toolStripStatusLabel1.Text = "Successfully added data to the list";
                     }
                     catch (Exception ex)
                     {
@@ -161,11 +164,13 @@ namespace WikiApplicationFINAL
             else
             {
                 toolStripStatusLabel1.Text = "Please fill out all required fields.";
+                return;
             }
-            ResetTextBoxes();
             txtBoxName.Focus();
             WikiList.Sort();
-            DisplayList(); // Display the updated list in the ListView
+            DisplayList();
+            
+
         }
 
         // 6.8 Create a button method that will save the edited record of the currently selected item in the ListView.
@@ -244,7 +249,7 @@ namespace WikiApplicationFINAL
             radioBtnNonLinear.Checked = false;
             txtBoxSearch.Clear();
             txtBoxDefinition.Clear();
-            toolStripStatusLabel1.Text = "Everything has been cleared"; 
+            toolStripStatusLabel1.Text = "All required fields have been cleared!"; 
 
         }
 
@@ -449,6 +454,16 @@ namespace WikiApplicationFINAL
             ShowData(); 
         }
 
+        private void TextBoxName_DoubleClick(object sender, MouseEventArgs e)
+        {
+            // 6.13 Create a double click event on the Name TextBox to clear the TextBboxes, ComboBox and Radio button.
+            ResetTextBoxes(); 
+        }
+
+        private void WikiApplicationFINAL_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SaveBinaryFile();
+        }
     }
 }
 
