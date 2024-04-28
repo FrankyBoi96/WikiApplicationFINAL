@@ -199,67 +199,83 @@ namespace WikiApplicationFINAL
         // All the changes in the input controls will be written back to the list. Display an updated version of the sorted list at the end of this process.
         private void EditWiki()
         {
+            // Check if any item is selected in the ListView
             if (listViewWiki.SelectedIndices.Count == 0)
             {
+                // Display a message if no item is selected and return from the method
                 toolStripStatusLabel1.Text = "Must select data to edit.";
                 return;
             }
 
+            // Get the index of the selected item and the corresponding Information object from WikiList
             int selectedIndex = listViewWiki.SelectedIndices[0];
             Information selectedData = WikiList[selectedIndex];
 
+            // Check if the name is valid (not a duplicate)
             if (ValidName(txtBoxName.Text))
             {
+                // Check if any required field is empty
                 if (string.IsNullOrEmpty(txtBoxName.Text) || string.IsNullOrEmpty(comboBoxCategory.Text) ||
-                string.IsNullOrEmpty(GetRadioButton()) || string.IsNullOrEmpty(txtBoxDefinition.Text))
+                    string.IsNullOrEmpty(GetRadioButton()) || string.IsNullOrEmpty(txtBoxDefinition.Text))
                 {
+                    // Display a message if any required field is empty
                     toolStripStatusLabel1.Text = "Fill all fields to edit data.";
                 }
                 else
                 {
+                    // Updates the information
                     selectedData.SetName(txtBoxName.Text.ToUpper());
                     selectedData.SetCategory(comboBoxCategory.Text);
                     selectedData.SetStructure(GetRadioButton());
                     selectedData.SetDefinition(txtBoxDefinition.Text);
 
+                    // Sort the WikiList and update the displayed list
                     WikiList.Sort();
                     DisplayList();
+                    // Reset text boxes and prints message
                     ResetTextBoxes();
                     toolStripStatusLabel1.Text = "Successfully edited data";
                 }
             }
             else
             {
+                // Prints message if the name entered in txtBoxName is a duplicate
                 toolStripStatusLabel1.Text = "Duplication!";
             }
-            
-
         }
 
         // 6.7 Create a button method that will delete the currently selected record in the ListView.
         // Ensure the user has the option to backout of this action by using a dialog box. Display an updated version of the sorted list at the end of this process.
         private void DeleteWiki()
         {
-            if(listViewWiki.SelectedIndices.Count > 0) 
+            // Check if any item is selected in the ListView
+            if (listViewWiki.SelectedIndices.Count > 0)
             {
+                // Get the index of the selected data
                 int selectedIndex = listViewWiki.SelectedIndices[0];
 
+                // Ask for confirmation before deleting
                 DialogResult result = MessageBox.Show("Are you sure you want this data to be deleted?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
+                // If the user confirms deletion
                 if (result == DialogResult.Yes)
                 {
+                    // Remove the selected item from WikiList
                     WikiList.RemoveAt(selectedIndex);
-                    ResetTextBoxes(); 
+
+                    // Reset text boxes
+                    ResetTextBoxes();
+
+                    // Update the displayed list and prints message
                     DisplayList();
                     toolStripStatusLabel1.Text = "Data has been deleted!";
                 }
-
             }
             else
             {
+                // Prints message if no item is selected for deletion
                 toolStripStatusLabel1.Text = "Must select data to delete.";
             }
-
         }
 
         // 6.12 Create a custom method that will clear and reset the TextBoxes, ComboBox and Radio button
@@ -311,24 +327,37 @@ namespace WikiApplicationFINAL
         // If the record is found the associated details will populate the appropriate input controls and highlight the name in the ListView. At the end of the search process the search input TextBox must be cleared.
         private void SearchWiki()
         {
+            // Create a new Information object for searching
             Information searchName = new Information();
-            // Set name from textbox
+
+            // Set the name from the textbox and convert it to uppercase
             searchName.SetName(txtBoxSearch.Text.ToUpper());
-            // if index found return 0
+
+            // Perform a binary search on WikiList to find the index of the searchName
             int foundIndex = WikiList.BinarySearch(searchName);
+
+            // If the searchName is found
             if (foundIndex >= 0)
             {
+                // Clear any previous selections in the ListView
                 listViewWiki.SelectedItems.Clear();
+
+                // Select the data at the found index in the ListView
                 listViewWiki.Items[foundIndex].Selected = true;
+
+                // Set focus to the ListView
                 listViewWiki.Focus();
+
+                // Update text boxes and radio buttons with data from WikiList at the found index
                 txtBoxName.Text = WikiList[foundIndex].GetName();
                 comboBoxCategory.Text = WikiList[foundIndex].GetCategory();
                 txtBoxDefinition.Text = WikiList[foundIndex].GetDefinition();
-                SetRadioButton(foundIndex);
+                SetRadioButton(foundIndex); // Set radio button based on structure
                 toolStripStatusLabel1.Text = "Found at index " + foundIndex;
             }
             else
             {
+                // Prints message if the searchName is not found
                 toolStripStatusLabel1.Text = "Data cannot be found";
             }
         }
@@ -390,7 +419,7 @@ namespace WikiApplicationFINAL
                 }
                 catch (Exception ex)
                 {
-                    // Display an error message if there is a general exception
+                    // MessageBox error message if there is a general exception
                     MessageBox.Show("Error opening file: " + ex.Message);
                 }
                 finally
@@ -410,37 +439,35 @@ namespace WikiApplicationFINAL
         {
             // Create and configure a SaveFileDialog instance
             SaveFileDialog saveFileDialog = new SaveFileDialog();
-
-            saveFileDialog.InitialDirectory = System.Windows.Forms.Application.StartupPath;
-            saveFileDialog.FileName = "definitions";
-            saveFileDialog.DefaultExt = ".dat";
-            saveFileDialog.Filter = "DAT files (*.dat)|*.dat|All files (*.*)|*.*";
+            saveFileDialog.InitialDirectory = System.Windows.Forms.Application.StartupPath; // Set initial directory
+            saveFileDialog.FileName = "definitions"; // Default file name
+            saveFileDialog.DefaultExt = ".dat"; // Default file extension
+            saveFileDialog.Filter = "DAT files (*.dat)|*.dat|All files (*.*)|*.*"; // Filter for file types
 
             // Show the save file dialog and wait for user input
-            DialogResult writer = saveFileDialog.ShowDialog();
+            DialogResult result = saveFileDialog.ShowDialog();
 
             // Process the user's choice
-            if (writer == DialogResult.OK)
+            if (result == DialogResult.OK) // If the user chooses to save
             {
+                // Create a FileStream and BinaryWriter to write data to the file
                 using (var fs = new FileStream(saveFileDialog.FileName, FileMode.Create))
                 {
                     using (var bw = new BinaryWriter(fs))
                     {
+                        // Loop through each Information object in WikiList and save its details to the file.
                         foreach (Information item in WikiList)
                         {
-                            bw.Write(item.GetName());
-                            bw.Write(item.GetCategory());
-                            bw.Write(item.GetStructure());
-                            bw.Write(item.GetDefinition());
+                            // Writes Name, Category, Structure & Definition
+                            bw.Write(item.GetName()); 
+                            bw.Write(item.GetCategory()); 
+                            bw.Write(item.GetStructure()); 
+                            bw.Write(item.GetDefinition()); 
                         }
                     }
                 }
             }
-            else if (writer == DialogResult.Cancel)
-            {
-                MessageBox.Show("File was not saved");
-            }
-            else
+            else // If the user cancels or closes the dialog without saving
             {
                 MessageBox.Show("File was not saved");
             }
@@ -448,6 +475,7 @@ namespace WikiApplicationFINAL
         #endregion
 
         #region Button Click Methods
+        // All methods from above are assigned to each button listed below
         private void btnOpen_Click(object sender, EventArgs e)
         {
             OpenBinaryFile();
