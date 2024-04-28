@@ -25,11 +25,13 @@ namespace WikiApplicationFINAL
             ComboBoxCategory();
              
         }
-
+        #region Global Variable 
         // 6.2 Create a global List<T> of type Information called Wiki.
         List<Information> WikiList = new List<Information>();
         const string fileName = "definitions.dat"; // Used for the Open/Save file methods
+        #endregion
 
+        #region Methods for DisplayList, ValidName, ComboBoxCategory & ShowData
         // 6.11 Create a ListView event so a user can select a Data Structure Name from the list of Names
         // and the associated information will be displayed in the related text boxes combo box and radio button.
         private void DisplayList()
@@ -124,8 +126,9 @@ namespace WikiApplicationFINAL
             }
             txtBoxDefinition.Text = WikiList[indx].GetDefinition(); 
         }
+        #endregion
 
-
+        #region Add, Edit, Delete, Reset & Radio Button
         // 6.3 Create a button method to ADD a new item to the list.
         // Use a TextBox for the Name input, ComboBox for the Category, Radio group for the Structure and Multiline TextBox for the Definition.
         private void AddWiki()
@@ -270,6 +273,9 @@ namespace WikiApplicationFINAL
             return radiotxt;
         }
 
+        //6.6 Create two methods to highlight and return the values from the Radio button GroupBox.
+        //The first method must return a string value from the selected radio button (Linear or Non-Linear).
+        //The second method must send an integer index which will highlight an appropriate radio button.
         private void SetRadioButton(int info)
         {
             if (WikiList[info].GetStructure() == "Linear")
@@ -277,7 +283,9 @@ namespace WikiApplicationFINAL
             if (WikiList[info].GetStructure() == "Non-Linear")
                 radioBtnNonLinear.Checked = true;
         }
+        #endregion
 
+        #region Search, Open & Save
         // 6.10 Create a button method that will use the builtin binary search to find a Data Structure name.
         // If the record is found the associated details will populate the appropriate input controls and highlight the name in the ListView. At the end of the search process the search input TextBox must be cleared.
         private void SearchWiki()
@@ -413,7 +421,9 @@ namespace WikiApplicationFINAL
                 MessageBox.Show("File was not saved");
             }
         }
+        #endregion
 
+        #region Button Click Methods
         private void btnOpen_Click(object sender, EventArgs e)
         {
             OpenBinaryFile();
@@ -466,6 +476,7 @@ namespace WikiApplicationFINAL
         }
     }
 }
+#endregion
 
 
 

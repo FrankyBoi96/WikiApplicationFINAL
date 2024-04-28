@@ -33,7 +33,6 @@ namespace WikiApplicationFINAL
         {
             return name;
         }
-
         public void SetName(string _Name)
         {
             name = _Name; 
