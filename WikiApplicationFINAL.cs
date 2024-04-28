@@ -150,7 +150,10 @@ namespace WikiApplicationFINAL
                         // Add the newInformation object to the WikiList
                         WikiList.Add(newInformation);
                         
-                        ResetTextBoxes(); 
+                        // Clears everything after data has been added
+                        ResetTextBoxes();
+                        
+                        //Prints message
                         toolStripStatusLabel1.Text = "Successfully added data to the list!";
 
                     }
@@ -161,11 +164,13 @@ namespace WikiApplicationFINAL
                 }
                 else
                 {
+                    // Prints message if name already exists
                     toolStripStatusLabel1.Text = "Name already exists. Please enter a different name.";
                 }
             }
             else
             {
+                // Prints message if all fields have not been filled
                 toolStripStatusLabel1.Text = "Please fill out all required fields.";
                 return;
             }
@@ -246,12 +251,14 @@ namespace WikiApplicationFINAL
         // 6.12 Create a custom method that will clear and reset the TextBoxes, ComboBox and Radio button
         private void ResetTextBoxes()
         {
+            // Clears each individual text box, combo box and radio button
             txtBoxName.Clear();
             comboBoxCategory.Text = "";
             radioBtnLinear.Checked = false;
             radioBtnNonLinear.Checked = false;
             txtBoxSearch.Clear();
             txtBoxDefinition.Clear();
+            // Prints message
             toolStripStatusLabel1.Text = "All required fields have been cleared!"; 
 
         }
@@ -312,6 +319,8 @@ namespace WikiApplicationFINAL
             }
         }
 
+        // 6.14 Create two buttons for the manual open and save option; this must use a dialog box to select a file or rename a saved file.
+        // All Wiki data is stored/retrieved using a binary reader/writer file format.
         private void OpenBinaryFile()
         {
             // Create and configure an OpenFileDialog instance
@@ -381,7 +390,8 @@ namespace WikiApplicationFINAL
             }
         }
 
-
+        // 6.14 Create two buttons for the manual open and save option; this must use a dialog box to select a file or rename a saved file.
+        // All Wiki data is stored/retrieved using a binary reader/writer file format.
         private void SaveBinaryFile()
         {
             // Create and configure a SaveFileDialog instance
@@ -464,12 +474,14 @@ namespace WikiApplicationFINAL
             ShowData(); 
         }
 
+        // 6.13 Create a double click event on the Name TextBox to clear the TextBboxes, ComboBox and Radio button.
         private void TextBoxName_DoubleClick(object sender, MouseEventArgs e)
         {
-            // 6.13 Create a double click event on the Name TextBox to clear the TextBboxes, ComboBox and Radio button.
+            
             ResetTextBoxes(); 
         }
 
+        // 6.15 The Wiki application will save data when the form closes. 
         private void WikiApplicationFINAL_FormClosing(object sender, FormClosingEventArgs e)
         {
             SaveBinaryFile();
