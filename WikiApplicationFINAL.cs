@@ -21,8 +21,8 @@ namespace WikiApplicationFINAL
         public WikiApplicationFINAL()
         {
             InitializeComponent();
-            toolStripStatusLabel1.Text = "Welcome to the Wiki Application!";
-            ComboBoxCategory();
+            toolStripStatusLabel1.Text = "Welcome to the Wiki Application!"; // Prints message everytime user opens form
+            ComboBoxCategory(); // When form is opened, the user should be able to select drop down box and all the categories should appear
              
         }
         #region Global Variable 
@@ -65,6 +65,7 @@ namespace WikiApplicationFINAL
             Trace.WriteLine("Check Name: " + a); */
             if (!string.IsNullOrEmpty(txtBoxName.Text))
             {
+                // If statement used to see if there is any duplications when user inputs the same name as any of the other ones within list
                 if (WikiList.Exists(dup => dup.GetName() == a.ToUpper()))
                 {
                     //Trace.WriteLine("Return False: Duplicate Found");
@@ -92,6 +93,7 @@ namespace WikiApplicationFINAL
         // 6.4 Create a custom method to populate the ComboBox when the Form Load method is called. The six categories must be read from a simple text file.
         private void ComboBoxCategory()
         {
+            // Variable for .txt file
             string filePath = "Category.txt";
 
             try
@@ -111,20 +113,32 @@ namespace WikiApplicationFINAL
         // 6.9 Create a single custom method that will sort and then display the Name and Category from the wiki information in the list.
         private void ShowData()
         {
+            // Get the selected item from the ListView
             ListViewItem item = listViewWiki.SelectedItems[0];
+
+            // Get the index of the selected item
             int indx = item.Index;
 
+            // Set the text of txtBoxName to the name from WikiList at the selected index
             txtBoxName.Text = WikiList[indx].GetName();
+
+            // Set the text of comboBoxCategory to the category from WikiList at the selected index
             comboBoxCategory.Text = WikiList[indx].GetCategory();
+
+            // Check if the structure from WikiList at the selected index is "Linear"
             if (WikiList[indx].GetStructure() == "Linear")
             {
+                // If it's "Linear", check the radio button for linear structures
                 radioBtnLinear.Checked = true;
             }
             else
             {
-                radioBtnNonLinear.Checked = true; 
+                // If it's not "Linear", check the radio button for non-linear structures
+                radioBtnNonLinear.Checked = true;
             }
-            txtBoxDefinition.Text = WikiList[indx].GetDefinition(); 
+
+            // Set the text of txtBoxDefinition to the definition from WikiList at the selected index
+            txtBoxDefinition.Text = WikiList[indx].GetDefinition();
         }
         #endregion
 
@@ -150,7 +164,10 @@ namespace WikiApplicationFINAL
                         // Add the newInformation object to the WikiList
                         WikiList.Add(newInformation);
                         
-                        ResetTextBoxes(); 
+                        // Clears everything after data has been added
+                        ResetTextBoxes();
+                        
+                        //Prints message
                         toolStripStatusLabel1.Text = "Successfully added data to the list!";
 
                     }
@@ -161,11 +178,13 @@ namespace WikiApplicationFINAL
                 }
                 else
                 {
+                    // Prints message if name already exists
                     toolStripStatusLabel1.Text = "Name already exists. Please enter a different name.";
                 }
             }
             else
             {
+                // Prints message if all fields have not been filled
                 toolStripStatusLabel1.Text = "Please fill out all required fields.";
                 return;
             }
@@ -246,12 +265,14 @@ namespace WikiApplicationFINAL
         // 6.12 Create a custom method that will clear and reset the TextBoxes, ComboBox and Radio button
         private void ResetTextBoxes()
         {
+            // Clears each individual text box, combo box and radio button
             txtBoxName.Clear();
             comboBoxCategory.Text = "";
             radioBtnLinear.Checked = false;
             radioBtnNonLinear.Checked = false;
             txtBoxSearch.Clear();
             txtBoxDefinition.Clear();
+            // Prints message
             toolStripStatusLabel1.Text = "All required fields have been cleared!"; 
 
         }
@@ -312,6 +333,8 @@ namespace WikiApplicationFINAL
             }
         }
 
+        // 6.14 Create two buttons for the manual open and save option; this must use a dialog box to select a file or rename a saved file.
+        // All Wiki data is stored/retrieved using a binary reader/writer file format.
         private void OpenBinaryFile()
         {
             // Create and configure an OpenFileDialog instance
@@ -381,7 +404,8 @@ namespace WikiApplicationFINAL
             }
         }
 
-
+        // 6.14 Create two buttons for the manual open and save option; this must use a dialog box to select a file or rename a saved file.
+        // All Wiki data is stored/retrieved using a binary reader/writer file format.
         private void SaveBinaryFile()
         {
             // Create and configure a SaveFileDialog instance
@@ -464,12 +488,14 @@ namespace WikiApplicationFINAL
             ShowData(); 
         }
 
+        // 6.13 Create a double click event on the Name TextBox to clear the TextBboxes, ComboBox and Radio button.
         private void TextBoxName_DoubleClick(object sender, MouseEventArgs e)
         {
-            // 6.13 Create a double click event on the Name TextBox to clear the TextBboxes, ComboBox and Radio button.
+            
             ResetTextBoxes(); 
         }
 
+        // 6.15 The Wiki application will save data when the form closes. 
         private void WikiApplicationFINAL_FormClosing(object sender, FormClosingEventArgs e)
         {
             SaveBinaryFile();
